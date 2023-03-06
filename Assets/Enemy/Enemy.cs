@@ -31,6 +31,11 @@ public class Enemy : MonoBehaviour
         {
             UpdateTargetLocation();
         }
+        behaviour.Invoke();
+    }
+    private void Shout()
+    {
+        Debug.Log("rawr");
     }
     private bool WillTaregetBeChescked()
     {
@@ -56,7 +61,10 @@ public class Enemy : MonoBehaviour
     {
         agent.speed = 5;
     }
+    private void Attack()
+    {
 
+    }
     private void UpdateTargetLocation()
     {
         agent.destination = GetTargetPosition();
