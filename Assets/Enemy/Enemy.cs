@@ -41,7 +41,6 @@ public class Enemy : MonoBehaviour
     }
     private void CombatBehaviour()
     {
-        attackTime = 0;
         Attack();
     }
     private void RoamingBehaviour()
@@ -93,7 +92,8 @@ public class Enemy : MonoBehaviour
         }
         if (lingerTime > lingerCooldown)
         {
-            agent.destination = roamingLocations[Random.Range(0,3)];
+            Debug.Log(roamingLocations.Length);
+            agent.destination = roamingLocations[Random.Range(0,roamingLocations.Length)];
             lingerTime = 0;
         }
     }
