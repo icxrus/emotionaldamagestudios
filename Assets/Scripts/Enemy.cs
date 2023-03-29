@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] public EnemyAttack enemyAttack;
+
     public Transform target;
     [SerializeField] private NavMeshAgent agent;
     private float time = 0;
@@ -18,6 +20,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float lingerCooldown;
     private float attackTime = 0;
     [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackDelay;
+    private bool attacking;
     [SerializeField] private int state = 0;
     private UnityEvent behaviour;
     [SerializeField] private Vector3[] roamingLocations;
@@ -33,14 +37,33 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         time += Time.deltaTime;
-        behaviour.Invoke();
+        attackTime += Time.deltaTime;
+        if (!attacking)
+        {
+            behaviour.Invoke();
+        }
+        else
+        {
+            if (attackTime > attackDelay)
+            {
+                enemyAttack.AttackCheck(10, target.GetComponent<DamageResieving>());
+                attacking = false;
+                agent.isStopped = false;
+                Tracking();
+            }
+        }
     }
     private void Shout()
     {
         Debug.Log("rawr");
     }
+    private void RotateAtTarget()
+    {
+        gameObject.transform.LookAt(target);
+    }
     private void CombatBehaviour()
     {
+        Tracking();
         Attack();
     }
     private void RoamingBehaviour()
@@ -53,11 +76,12 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        attackTime += Time.deltaTime;
         if (attackTime > attackCooldown)
         {
-            target.GetComponent<DamageResieving>().ResievingDamage(10);
+            agent.isStopped = true;
             attackTime = 0;
+            Shout();
+            attacking = true;
         }
     }
     private void Tracking()
@@ -92,7 +116,6 @@ public class Enemy : MonoBehaviour
         }
         if (lingerTime > lingerCooldown)
         {
-            Debug.Log(roamingLocations.Length);
             agent.destination = roamingLocations[Random.Range(0,roamingLocations.Length)];
             lingerTime = 0;
         }
@@ -149,21 +172,21 @@ public class Enemy : MonoBehaviour
             cooldown = 0.5f;
             behaviour.RemoveAllListeners();
             behaviour.AddListener(CombatBehaviour);
-            agent.speed = 0;
+            behaviour.AddListener(RotateAtTarget);
         }
         else if (state == 5)
         {
             cooldown = 0.5f;
             behaviour.RemoveAllListeners();
             behaviour.AddListener(CombatBehaviour);
-            agent.speed = 0;
+            behaviour.AddListener(RotateAtTarget);
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter()
     {
         StateController(true);
     }
-    private void OnTriggerExit(Collider collision)
+    private void OnTriggerExit()
     {
         StateController(false);
     }
