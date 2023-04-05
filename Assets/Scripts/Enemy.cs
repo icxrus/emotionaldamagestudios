@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
     }
     private void UpdateRoamingLocation()
     {
-        if (Vector3.Distance(transform.position, agent.destination) < 1)
+        if (Vector3.Distance(transform.position, agent.destination) < 5)
         {
             lingerTime += Time.deltaTime;
         }

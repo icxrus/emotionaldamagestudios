@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 8215377302096049656}
   - component: {fileID: 8215377302096049661}
   - component: {fileID: 4971458955387362053}
+  - component: {fileID: 5040567855782763057}
+  - component: {fileID: 5565221410154635783}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -152,12 +154,12 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &8215377302096049657
@@ -176,11 +178,17 @@ MonoBehaviour:
   target: {fileID: 0}
   agent: {fileID: 8215377302096049654}
   cooldown: 10
-  lingerCooldown: 0
-  attackCooldown: 0
-  attackDelay: 0
+  lingerCooldown: 2
+  attackCooldown: 2
+  attackDelay: 4
   state: 0
-  roamingLocations: []
+  roamingLocations:
+  - {x: 40, y: 0, z: 40}
+  - {x: 40, y: 0, z: 80}
+  - {x: 80, y: 0, z: 80}
+  - {x: 80, y: 0, z: 40}
+  - {x: 80, y: 0, z: 140}
+  - {x: 40, y: 0, z: 140}
 --- !u!135 &8215377302096049662
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -241,11 +249,53 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8215377302096049655}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5040567855782763057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8215377302096049655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838309562495a0244b14dc08b90778c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAlive: 1
+  CurrentHealth: 1000
+  MaximumHealth: 1000
+  HasAnimationWhenHealthChanges: 1
+  AnimationDuration: 0.1
+  OnCurrentHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnIsAliveChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaximumHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  HealthBarPrefabToSpawn: {fileID: 8459761256327841958, guid: 8d33425d7a2a5394ba6dc22e7de6306c, type: 3}
+--- !u!114 &5565221410154635783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8215377302096049655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82233a776acb114e9444cbb4891cabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 0
+  blockValue: 0
+  blocking: 0
 --- !u!1 &8215377303114381851
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8215377303114381851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 3, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -341,7 +391,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8249031803854870018
