@@ -12,27 +12,27 @@ public class SwichShop : MonoBehaviour
     void Update()
     {
         // Move to diifferent Shop fom 1 to 2
-        if(Shop1.activeSelf == true && Input.GetKeyDown(KeyCode.RightArrow))
+        if(Shop1.activeSelf == true && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)))
         {
             Shop2.SetActive(true);
             Shop1.SetActive(false);
             
         }
-        else if (Shop1.activeSelf == true && Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Shop2.SetActive(true);
-            Shop1.SetActive(false);
-        }
         // from 2 to 1
-        else if (Shop2.activeSelf == true && Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Shop2.activeSelf == true && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)))
         {
             Shop1.SetActive(true);
             Shop2.SetActive(false);
         }
-        else if (Shop2.activeSelf == true && Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Shop1.SetActive(true);
-            Shop2.SetActive(false);
-        }
+    }
+    public void GoToShop1()
+    {
+        Shop1.SetActive(true);
+        Shop2.SetActive(false);
+    }
+    public void GoToShop2()
+    {
+        Shop1.SetActive(false);
+        Shop2.SetActive(true);
     }
 }
