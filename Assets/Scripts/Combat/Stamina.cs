@@ -11,7 +11,7 @@ public class Stamina : MonoBehaviour
 
 
     [SerializeField] private float _staminaLeft;
-    [SerializeField] private float _staminaCount;
+    [SerializeField] private float _staminaCount = 25;
     [SerializeField] private float _staminaCap = 25;
     // Call with int to remove stamina
     public int _depleadStamina = 3;
@@ -53,12 +53,12 @@ public class Stamina : MonoBehaviour
             _staminaCount -= _depleadStamina;
             _doAction = false;
         }
-        if(_staminaCount <= _staminaCap && _doAction == false)
+        else if(_staminaCount <= _staminaCap && _doAction == false)
         {
             _Stop = false;
             _hasStamina = true;
         }
-        if(_staminaCount <= _depleadStamina) {_hasStamina = false;}
+        else if(_staminaCount <= _depleadStamina) {_hasStamina = false;}
         else
         {
             _Stop = true;
@@ -72,10 +72,15 @@ public class Stamina : MonoBehaviour
             _hasStamina = true;
             _Stop = true;
         }
-        if(_staminaCount <= _staminaCap && _Stop == false)
+        else if(_staminaCount <= _staminaCap && _Stop == false)
         {
             _staminaCount += 1f / _regainSpeed;
             // Set by _staminaCount = xf;
         }    
+    }
+
+    public void ChangeDoActionBool(bool stateBool)
+    {
+        _doAction = stateBool;
     }
 }
