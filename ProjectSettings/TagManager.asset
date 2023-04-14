@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - Dragon
   - Meat
+  - Bunny
   layers:
   - Default
   - TransparentFX
