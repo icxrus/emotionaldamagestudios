@@ -5,16 +5,51 @@ using UnityEngine;
 public class BearMovement : MonoBehaviour
 {
     public float speed = 2;
+    [SerializeField] private Animator bearWalk;
+    private bool canBearMove;
+    private bool canBearEat;
+    [SerializeField] private GameObject target;
+    public Transform meat;
+    [SerializeField] private GameObject sphere;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        bearWalk.SetBool("WalkForward", true);
+        canBearMove = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        if (canBearMove == true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            transform.LookAt(meat);
+        }
+
+        else
+        {
+            bearWalk.SetBool("WalkForward", false);
+            bearWalk.SetBool("Sit", true);
+        }
+
+        if (canBearEat == true)
+        {
+            bearWalk.SetBool("Eat", true);
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canBearMove = false;
+        }
+
+        if (other.CompareTag("Meat"))
+        {
+            canBearMove = false;
+            canBearEat = true;
+        }
+
     }
 }

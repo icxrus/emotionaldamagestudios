@@ -41,6 +41,7 @@ public class PlayerNearDragon : MonoBehaviour
         }
     }
 
+    //Makes the dragon fly off into the distance
     public void FlyAway()
     {
         dragon.transform.Translate(Vector3.forward * flySpeed * Time.deltaTime);
