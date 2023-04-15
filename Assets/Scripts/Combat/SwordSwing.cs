@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwordSwing : MonoBehaviour
 {
     public GameObject Sword;
+    public ParticleSystem particles;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +25,10 @@ public class SwordSwing : MonoBehaviour
     IEnumerator SwordSwinging()
     {
         Sword.GetComponent<Animator>().Play("SwordSwing");
+        particles.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(1.0f);
         Sword.GetComponent<Animator>().Play("New State");
+        particles.GetComponent<ParticleSystem>().Stop();
     }
 
     //Script from https://github.com/Noblob/SwordSwing/blob/main/SwordSwingScript.cs
