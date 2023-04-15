@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     private bool attacking;
     [SerializeField] private int state = 0;
     private UnityEvent behaviour;
-    [SerializeField] private Vector3[] roamingLocations;
+    [SerializeField] private Transform[] roamingLocations;
     private void Start()
     {
         if (agent == null)
@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour
         }
         if (lingerTime > lingerCooldown)
         {
-            agent.destination = roamingLocations[Random.Range(0,roamingLocations.Length)];
+            agent.destination = roamingLocations[Random.Range(0,roamingLocations.Length)].position;
             lingerTime = 0;
         }
     }
