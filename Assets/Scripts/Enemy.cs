@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
     private UnityEvent behaviour;
     [SerializeField] private Transform[] roamingLocations;
 
+    [SerializeField] private Animator bearAnimator;
+
     [SerializeField] private HealthSystemForDummies ownHealthSystem;
     private void Start()
     {
@@ -60,23 +62,28 @@ public class Enemy : MonoBehaviour
                 }
                 else if(attackTime > attackDelay - animationTime)
                 {
-                    //Attackanimation here
+                    bearAnimator.SetTrigger("Attack1");
                 }
             }
-            if (agent.isStopped == true)
+            if (!attacking)
             {
-               //stand animation start here
-            }
-            else 
-            {
-                //Walkbehaviour here
+                if (agent.isStopped == true)
+                {
+                    bearAnimator.SetBool("WalkForward", false);
+                    bearAnimator.SetBool("Idle", true);
+                }
+                else
+                {
+                    bearAnimator.SetBool("Idle", false);
+                    bearAnimator.SetBool("WalkForward", true);
+                }
             }
         }
         else
         {
             agent.isStopped = true;
 
-            //dead animation here
+            bearAnimator.SetBool("Death", true);
         }
     }
     private void Shout()
