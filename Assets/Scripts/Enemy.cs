@@ -23,10 +23,13 @@ public class Enemy : MonoBehaviour
     private float attackTime = 0;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackDelay;
+    [SerializeField] private float animationTime;
     private bool attacking;
     [SerializeField] private int state = 0;
     private UnityEvent behaviour;
     [SerializeField] private Transform[] roamingLocations;
+
+    [SerializeField] private HealthSystemForDummies ownHealthSystem;
     private void Start()
     {
         if (agent == null)
@@ -38,21 +41,42 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        time += Time.deltaTime;
-        attackTime += Time.deltaTime;
-        if (!attacking)
+        if (ownHealthSystem.IsAlive ==  true)
         {
-            behaviour.Invoke();
+            time += Time.deltaTime;
+            attackTime += Time.deltaTime;
+            if (!attacking)
+            {
+                behaviour.Invoke();
+            }
+            else
+            {
+                if (attackTime > attackDelay)
+                {
+                    enemyAttack.AttackCheck(10, target.GetComponent<DamageResieving>());
+                    attacking = false;
+                    agent.isStopped = false;
+                    Tracking();
+                }
+                else if(attackTime > attackDelay - animationTime)
+                {
+                    //Attackanimation here
+                }
+            }
+            if (agent.isStopped == true)
+            {
+               //stand animation start here
+            }
+            else 
+            {
+                //Walkbehaviour here
+            }
         }
         else
         {
-            if (attackTime > attackDelay)
-            {
-                enemyAttack.AttackCheck(10, target.GetComponent<DamageResieving>());
-                attacking = false;
-                agent.isStopped = false;
-                Tracking();
-            }
+            agent.isStopped = true;
+
+            //dead animation here
         }
     }
     private void Shout()
