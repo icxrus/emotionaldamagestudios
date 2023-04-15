@@ -10,7 +10,9 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] public EnemyAttack enemyAttack;
+    [SerializeField] private EnemyAttack enemyAttack;
+
+    [SerializeField] private SphereCollider[] stateSpheres;
 
     public Transform target;
     [SerializeField] private NavMeshAgent agent;
@@ -182,12 +184,18 @@ public class Enemy : MonoBehaviour
             behaviour.AddListener(RotateAtTarget);
         }
     }
-    private void OnTriggerEnter()
+    private void OnTriggerEnter(Collider other)
     {
-        StateController(true);
+        if (other.transform.tag == "Player")
+        {
+            StateController(true);
+        }
     }
-    private void OnTriggerExit()
+    private void OnTriggerExit(Collider other)
     {
-        StateController(false);
+        if (other.transform.tag == "Player")
+        {
+            StateController(false);
+        }
     }
 }

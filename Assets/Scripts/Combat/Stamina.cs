@@ -8,7 +8,7 @@ public class Stamina : MonoBehaviour
     public bool _hasStamina;
     // SET THIS BOOL TO TRUE TO USE THE SCRIPT
     private bool _doAction;
-
+    // WaitToExetute is a beta script and doesn´t have use
 
     [SerializeField] private float _staminaLeft;
     [SerializeField] private float _staminaCount;
