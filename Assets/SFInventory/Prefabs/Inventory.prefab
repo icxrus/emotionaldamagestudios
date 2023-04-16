@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4022105377713732825}
   - component: {fileID: 4022105377713732831}
   - component: {fileID: 4022105377713732828}
-  - component: {fileID: 4022105377713732829}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -112,26 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragCell: {fileID: 5930470939577692774, guid: 3abc9f6b7bf09bb4781d795ea5649968, type: 3}
---- !u!114 &4022105377713732829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4022105377713732827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 328e0a7c2080a7b40bc1da5093d50a69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testItems:
-  - {fileID: 11400000, guid: 655fb8bad664c404dad037fc5d45294c, type: 2}
-  - {fileID: 11400000, guid: 29a3c67d24204be4297afa378b0305f4, type: 2}
-  - {fileID: 11400000, guid: a4a4488583706974d836d65b1991e793, type: 2}
-  - {fileID: 11400000, guid: 19f29cf209fa2504bade0f13b95bf734, type: 2}
-  - {fileID: 11400000, guid: 91649dbd6b58c604894e00406b9cfbff, type: 2}
-  - {fileID: 11400000, guid: eef8e499438ad784e92edb3d7e62305e, type: 2}
-  addCount: 1
 --- !u!1 &4022105377756495278
 GameObject:
   m_ObjectHideFlags: 0

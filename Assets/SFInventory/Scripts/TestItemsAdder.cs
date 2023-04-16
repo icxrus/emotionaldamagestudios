@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SFInventory;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SFInventory.Demo
 {
@@ -17,7 +18,7 @@ namespace SFInventory.Demo
 
         //Price handeling
         // Text displaying player´s money
-        public Text _playerMoney;
+        public TMP_Text _playerMoney;
         // Boolena fro testing if player has enough money to do a purchase
         [SerializeField] private bool _CanBuy;
         // Int saving the ammount player has.

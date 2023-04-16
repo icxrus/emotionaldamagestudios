@@ -59,6 +59,24 @@ namespace SFInventory
                 }
             }
         }
+        public GameObject SFInventoryQ1;
+        public void MinusItemsCount1(SFInventoryItem item, int amount, out int itemsLeft)
+        {
+            itemsLeft = amount;
+            //checking for the presence of an item with the same type or a free cell
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SFInventoryItem cell;
+                //simple math to add new items in quantity 
+                int diff = item.MaximumItemsCount;
+                if (diff < itemsLeft)
+                {
+                    itemsLeft -= diff;
+                    //recursion with which several cells are added if everything does not fit in one cell
+                    MinusItemsCount1(item, itemsLeft, out itemsLeft);
+                }
+            }
+        }
 
         //get a free cell that does not contain any items
         public bool GetFreeCell(out SFInventoryCell cell)

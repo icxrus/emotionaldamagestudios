@@ -14,4 +14,8 @@ public class ExitShop : MonoBehaviour
             SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         }
     }
+    public void ExitShoop()
+    {
+        SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
+    }
 }

@@ -8,7 +8,7 @@ namespace SFInventory
     {
         public Sprite Icon;
         public string Name;
-        public int MaximumItemsCount = 64;
+        public int MaximumItemsCount = 8;
         public ItemType ItemType;
     } 
     

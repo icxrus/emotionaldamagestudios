@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb8245f4455d9cc4cbf0d6e3cbf39f4a, type: 3}
-  m_Name: Egg
+  m_Name: SusPotion
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 7241bdaf79f1cdf499a61207cca30b2c, type: 3}
-  Name: Egg
-  MaximumItemsCount: 64
+  Icon: {fileID: 21300000, guid: fde8e2a1ba7a32849a0bf741ffbcd2ea, type: 3}
+  Name: Dice
+  MaximumItemsCount: 8
+  ItemType: 0

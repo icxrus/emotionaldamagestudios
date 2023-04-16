@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb8245f4455d9cc4cbf0d6e3cbf39f4a, type: 3}
-  m_Name: Sword
+  m_Name: CuriousPotion
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 9b3ad88223cb75840b71b241c3d473ee, type: 3}
-  Name: Jacket
-  MaximumItemsCount: 1
-  ItemType: 1
+  Icon: {fileID: 21300000, guid: 63a88de26125bf242b32c5bea8257c72, type: 3}
+  Name: Bottle
+  MaximumItemsCount: 8
+  ItemType: 0
