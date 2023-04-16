@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
             }
             if (!attacking)
             {
-                if (agent.isStopped == true)
+                if (agent.velocity.x == 0 || agent.velocity.z == 0)
                 {
                     bearAnimator.SetBool("WalkForward", false);
                     bearAnimator.SetBool("Idle", true);
