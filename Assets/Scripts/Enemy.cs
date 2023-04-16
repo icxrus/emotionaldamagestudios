@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     private float lingerTime = 0;
     [SerializeField] private float lingerCooldown;
     private float attackTime = 0;
+    [SerializeField] private float damage;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackDelay;
     [SerializeField] private float animationTime;
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour
             {
                 if (attackTime > attackDelay)
                 {
-                    enemyAttack.AttackCheck(10, target.GetComponent<DamageResieving>());
+                    enemyAttack.AttackCheck(damage, target.GetComponent<DamageResieving>());
                     attacking = false;
                     agent.isStopped = false;
                     Tracking();
