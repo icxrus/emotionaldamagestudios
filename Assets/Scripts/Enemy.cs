@@ -10,6 +10,10 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private EnemyAttack enemyAttack;
+
+    [SerializeField] private SphereCollider[] stateSpheres;
+
     public Transform target;
     [SerializeField] private NavMeshAgent agent;
     private float time = 0;
@@ -17,10 +21,18 @@ public class Enemy : MonoBehaviour
     private float lingerTime = 0;
     [SerializeField] private float lingerCooldown;
     private float attackTime = 0;
+    [SerializeField] private float damage;
     [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackDelay;
+    [SerializeField] private float animationTime;
+    private bool attacking;
     [SerializeField] private int state = 0;
     private UnityEvent behaviour;
-    [SerializeField] private Vector3[] roamingLocations;
+    [SerializeField] private Transform[] roamingLocations;
+
+    [SerializeField] private Animator bearAnimator;
+
+    [SerializeField] private HealthSystemForDummies ownHealthSystem;
     private void Start()
     {
         if (agent == null)
@@ -32,15 +44,60 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        time += Time.deltaTime;
-        behaviour.Invoke();
+        if (ownHealthSystem.IsAlive ==  true)
+        {
+            time += Time.deltaTime;
+            attackTime += Time.deltaTime;
+            if (!attacking)
+            {
+                behaviour.Invoke();
+            }
+            else
+            {
+                if (attackTime > attackDelay)
+                {
+                    enemyAttack.AttackCheck(damage, target.GetComponent<DamageResieving>());
+                    attacking = false;
+                    agent.isStopped = false;
+                    Tracking();
+                }
+                else if(attackTime > attackDelay - animationTime)
+                {
+                    bearAnimator.SetTrigger("Attack1");
+                }
+            }
+            if (!attacking)
+            {
+                if (agent.velocity.x == 0 || agent.velocity.z == 0)
+                {
+                    bearAnimator.SetBool("WalkForward", false);
+                    bearAnimator.SetBool("Idle", true);
+                }
+                else
+                {
+                    bearAnimator.SetBool("Idle", false);
+                    bearAnimator.SetBool("WalkForward", true);
+                }
+            }
+        }
+        else
+        {
+            agent.isStopped = true;
+
+            bearAnimator.SetBool("Death", true);
+        }
     }
     private void Shout()
     {
         Debug.Log("rawr");
     }
+    private void RotateAtTarget()
+    {
+        gameObject.transform.LookAt(target);
+    }
     private void CombatBehaviour()
     {
+        Tracking();
         Attack();
     }
     private void RoamingBehaviour()
@@ -53,11 +110,12 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        attackTime += Time.deltaTime;
         if (attackTime > attackCooldown)
         {
-            target.GetComponent<DamageResieving>().ResievingDamage(10);
+            agent.isStopped = true;
             attackTime = 0;
+            Shout();
+            attacking = true;
         }
     }
     private void Tracking()
@@ -86,14 +144,13 @@ public class Enemy : MonoBehaviour
     }
     private void UpdateRoamingLocation()
     {
-        if (Vector3.Distance(transform.position, agent.destination) < 1)
+        if (Vector3.Distance(transform.position, agent.destination) < 5)
         {
             lingerTime += Time.deltaTime;
         }
         if (lingerTime > lingerCooldown)
         {
-            Debug.Log(roamingLocations.Length);
-            agent.destination = roamingLocations[Random.Range(0,roamingLocations.Length)];
+            agent.destination = roamingLocations[Random.Range(0,roamingLocations.Length)].position;
             lingerTime = 0;
         }
     }
@@ -149,22 +206,28 @@ public class Enemy : MonoBehaviour
             cooldown = 0.5f;
             behaviour.RemoveAllListeners();
             behaviour.AddListener(CombatBehaviour);
-            agent.speed = 0;
+            behaviour.AddListener(RotateAtTarget);
         }
         else if (state == 5)
         {
             cooldown = 0.5f;
             behaviour.RemoveAllListeners();
             behaviour.AddListener(CombatBehaviour);
-            agent.speed = 0;
+            behaviour.AddListener(RotateAtTarget);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        StateController(true);
+        if (other.transform.tag == "Player")
+        {
+            StateController(true);
+        }
     }
-    private void OnTriggerExit(Collider collision)
+    private void OnTriggerExit(Collider other)
     {
-        StateController(false);
+        if (other.transform.tag == "Player")
+        {
+            StateController(false);
+        }
     }
 }
