@@ -12,7 +12,8 @@ namespace SFInventory.Demo
 
         public void BuyAnItem()
         {
-            int _newItemPrice =  ShopManager.GetComponent<TestItemsAdder>()._itemPrice;
+            _newItemPrice = ShopManager.GetComponent<TestItemsAdder>()._itemPrice;
+            _itemTag = ShopManager.GetComponent<TestItemsAdder>().shopItemTag;
         }
     }
 }

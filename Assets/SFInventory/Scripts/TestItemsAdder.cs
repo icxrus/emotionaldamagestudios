@@ -56,5 +56,53 @@ namespace SFInventory.Demo
             else { Debug.Log("Not Enough Money"); }
 
         }
+        public void BuyItem1()
+        {
+            shopItemTag = 0;
+            _itemPrice = 10;
+            AddItemToInventory();
+        }
+        public void BuyItem2()
+        {
+            shopItemTag = 1;
+            _itemPrice = 2;
+            AddItemToInventory();
+        }
+        public void BuyItem3()
+        {
+            shopItemTag = 2;
+            _itemPrice = 3;
+            AddItemToInventory();
+        }
+        public void BuyItem4()
+        {
+            shopItemTag = 3;
+            _itemPrice = 25;
+            AddItemToInventory();
+        }
+        public void BuyItem5()
+        {
+            shopItemTag = 4;
+            _itemPrice = 5;
+            AddItemToInventory();
+        }
+        public void BuyItem6()
+        {
+            shopItemTag = 5;
+            _itemPrice = 20;
+            AddItemToInventory();
+        }
+        public void BuyItem7()
+        {
+            shopItemTag = 6;
+            _itemPrice = 35;
+            AddItemToInventory();
+        }
+        public void BuyItem8()
+        {
+            shopItemTag = 7;
+            _itemPrice = 30;
+            AddItemToInventory();
+        }
     }
 }
