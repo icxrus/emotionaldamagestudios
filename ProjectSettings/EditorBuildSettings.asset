@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: ef5142757f444324190862a7b37a0bcd
+  - enabled: 1
+    path: Assets/Scenes/ScorchedForrest.unity
+    guid: ac51952b56c079840ba26993522faea2
   m_configObjects: {}
