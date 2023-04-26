@@ -6,7 +6,7 @@ using TMPro;
 public class QuestMaster : MonoBehaviour
 {
     [SerializeField] private GameObject _self;
-    //Object.DontDestroyOnLoad();
+    
     // pause UI remider
     [SerializeField] private GameObject _Hint1;
     [SerializeField] private GameObject _Hint2;
@@ -18,13 +18,7 @@ public class QuestMaster : MonoBehaviour
     public bool _questActive1;
     public bool _questActive2;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void UpdatePauseIndicateor1()
+    public void UpdateIndicateor1()
     {
         if(_questActive1 == true)
         {
@@ -37,7 +31,7 @@ public class QuestMaster : MonoBehaviour
         }
     }
 
-    void UpdatePauseIndicateor2()
+    public void UpdateIndicateor2()
     {
         if (_questActive2 == true)
         {
