@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackDelay;
     [SerializeField] private float animationTime;
-    private bool attacking;
+    [SerializeField] private bool attacking;
     [SerializeField] private int state = 0;
     private UnityEvent behaviour;
     [SerializeField] private Transform[] roamingLocations;
@@ -47,18 +47,15 @@ public class Enemy : MonoBehaviour
         if (ownHealthSystem.IsAlive ==  true)
         {
             time += Time.deltaTime;
-            attackTime += Time.deltaTime;
-            if (!attacking)
+            if(attacking)
             {
-                behaviour.Invoke();
-            }
-            else
-            {
+                attackTime += Time.deltaTime;
                 if (attackTime > attackDelay)
                 {
                     enemyAttack.AttackCheck(damage, target.GetComponent<DamageResieving>());
                     attacking = false;
                     agent.isStopped = false;
+                    attackTime = 0;
                     Tracking();
                 }
                 else if(attackTime > attackDelay - animationTime)
@@ -68,6 +65,8 @@ public class Enemy : MonoBehaviour
             }
             if (!attacking)
             {
+                attackTime = 0;
+                behaviour.Invoke();
                 if (agent.velocity.x == 0 || agent.velocity.z == 0)
                 {
                     bearAnimator.SetBool("WalkForward", false);
@@ -110,12 +109,12 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        if (attackTime > attackCooldown)
-        {
             agent.isStopped = true;
-            attackTime = 0;
+            //attackTime = 0;
             Shout();
             attacking = true;
+        if (attackTime > attackCooldown)
+        {
         }
     }
     private void Tracking()
